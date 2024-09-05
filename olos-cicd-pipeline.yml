@@ -1,5 +1,3 @@
-steps:
-
 trigger:
  branches:
    include:
