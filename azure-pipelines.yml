@@ -2,8 +2,12 @@ resources:
   repositories:
   - repository: DevOps
     type: git
-    name: TestingMigration
+    name: GMR-TMP/GMR.TMP.DEVOPS
     ref: dev
+  - repository: DevOpsProd
+    type: git
+    name: GMR-TMP/KeyVault-PROD
+    ref: release/PROD
 trigger:
   branches:
     include:
@@ -23,6 +27,14 @@ trigger:
     - Hclappscan-build-pipeline.yml
 pool:
   name: selfhostedagent-preprod
+variables:
+- name: solution
+  value: '**/*.sln'
+- name: buildPlatform
+  value: 'Any CPU'
+- name: buildConfiguration
+  value: 'Release'
+- group: 'ServiceConnections-PR-Dev'
 stages:
 - stage: 'API_Build'
   displayName: 'Build Project'
