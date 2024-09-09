@@ -1176,18 +1176,16 @@ stages:
         cleanContents: false
         preservePaths: true
         trustSSL: false
-    - name: Deploy Build for nested Olosadmin App
-      uses: azure/webapps-deploy@v2
-      with:
-      app-name: ${{ env.webAppName }}
-      slot-name: ${{ env.slotName }}
-      publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-      package: ${{ env.System_ArtifactsDirectory }}/Drop/*.zip
-      app-settings: |
-        - WEBSITE_DNS_SERVER=${{ env.WEBSITE_DNS_SERVER }}
-        - WEBSITE_VNET_ROUTE_ALL=${{ env.WEBSITE_VNET_ROUTE_ALL }}
-      configuration-settings: |
-        - webSocketsEnabled=${{ env.webSocketsEnabled }}
+    - task: AzureRmWebAppDeployment@3
+      displayName: 'Deploy Build for nested Olosadmin App'
+      inputs:
+        azureSubscription: '$(subscription)'
+        appType: 'app'
+        WebAppName: '$(webAppName)'
+        VirtualApplication: '/olosadmin'
+        Package: '$(System.ArtifactsDirectory)/Drop/*.zip'
+        AppSettings: '-WEBSITE_DNS_SERVER $(WEBSITE_DNS_SERVER) -WEBSITE_VNET_ROUTE_ALL $(WEBSITE_VNET_ROUTE_ALL)'
+        ConfigurationSettings: '-webSocketsEnabled $(webSocketsEnabled)'
     - task: FtpUpload@2
       inputs:
         credentialsOption: 'inputs'
