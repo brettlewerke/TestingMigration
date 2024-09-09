@@ -2,12 +2,8 @@ resources:
   repositories:
   - repository: DevOps
     type: git
-    name: GMR-TMP/GMR.TMP.DEVOPS
+    name: TestingMigration
     ref: dev
-  - repository: DevOpsProd
-    type: git
-    name: GMR-TMP/KeyVault-PROD
-    ref: release/PROD
 trigger:
   branches:
     include:
