@@ -23,14 +23,6 @@ trigger:
     - Hclappscan-build-pipeline.yml
 pool:
   name: selfhostedagent-preprod
-variables:
-- name: solution
-  value: '**/*.sln'
-- name: buildPlatform
-  value: 'Any CPU'
-- name: buildConfiguration
-  value: 'Release'
-- group: 'ServiceConnections-PR-Dev'
 stages:
 - stage: 'API_Build'
   displayName: 'Build Project'
